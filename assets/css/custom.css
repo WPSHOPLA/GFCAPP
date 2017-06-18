@@ -1,0 +1,305 @@
+/*hacken*/
+/** {*/
+/*font-family: "Helvetica Neue",*/
+/*Helvetica, sans-serif;*/
+/*font-size: 15px;*/
+/*font-variant: normal;*/
+/*padding: 0;*/
+/*margin: 0;*/
+/*}*/
+
+html {
+    height: 100%;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+body {
+    background: #F6F9FC;
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+}
+
+
+/*TEXT*/
+.text-error{
+    color: #ff282f;
+}
+
+.text-success{
+    color: #29b866;
+}
+
+.response_text{
+    font-size: 17px;
+}
+
+
+.sub_col {
+    padding: 0 10%;
+}
+
+form.sub_form {
+    width: 100%;
+    margin: 80px auto;
+}
+
+.sub_form div.control, .summary label {
+    font-size: 20px;
+    position: relative;
+    color: #32315E;
+    font-weight: 400;
+    margin-bottom: 10px;
+    display: block;
+}
+
+p.description {
+    color: #6A7C94;
+}
+
+.form-control {
+    background: white;
+    box-sizing: border-box;
+    font-weight: 400;
+    border: 1px solid #CFD7DF;
+    border-radius: 4px;
+    color: #32315E;
+    outline: none;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    cursor: text;
+    width: 100%;
+    font-size: 15px;
+}
+
+input.form-control[type="checkbox"] {
+    margin-right: 20px;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #CFD7DF;
+}
+
+.form-control::-moz-placeholder {
+    color: #CFD7DF;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #CFD7DF;
+}
+
+.form-control:focus,
+.form-control.StripeElement--focus {
+    border-color: #2cb419;
+}
+
+.sub_form button {
+    background-image: linear-gradient(-180deg, #29b866 0%, #2cb419 100%);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 0 #a9e545;
+    color: white;
+    border-radius: 4px;
+    border: 0;
+}
+
+.sub_form button.redeem {
+    padding: 10px;
+    margin-top: 20px;
+    height: 48px;
+}
+
+.sub_form .input-group input {
+    margin-top: 20px;
+    float: left;
+}
+
+.sub_form button:focus {
+    background: #2cb419;
+    color: white;
+    font-weight: 900;
+    outline: none;
+}
+
+.sub_form button:active {
+    background: #2cb419;
+    color: white;
+    font-weight: 900;
+    outline: none;
+}
+
+.outcome {
+    float: left;
+    width: 100%;
+    padding-top: 8px;
+    min-height: 20px;
+    text-align: center;
+}
+
+.success, .error {
+    display: none;
+    font-size: 13px;
+}
+
+.success.visible, .error.visible {
+    display: inline;
+}
+
+.error {
+    color: #E4584C;
+}
+
+.success {
+    color: #F8B563;
+}
+
+.success .token {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.footer-v1 {
+    margin-top: 100px;
+}
+
+/* .squaredOne Checkbox Style*/
+.squaredOne {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    display: inline-block;
+}
+
+.squaredOne label {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    cursor: pointer;
+    padding-left: 30px;
+}
+
+.squaredOne label:after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: white;
+    box-shadow: inset 1px 1px 1px white, 1px 1px 3px rgb(0, 0, 0);
+}
+
+.squaredOne input[type=checkbox] {
+    visibility: hidden;
+}
+
+.squaredOne input[type=checkbox] + label:after {
+    background-color: white;
+}
+
+.squaredOne input[type=checkbox]:checked + label:after {
+    background: #27ae60;
+}
+
+.summary {
+    margin: 80px auto;
+    width: 100%;
+}
+
+.benefit {
+    margin-top: 20px;
+}
+
+.benefit ul {
+    padding: 10px 20px;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.summary {
+    display: none;
+}
+
+.summary table {
+    margin-bottom: 40px;
+    font-size: 18px;
+    width: 100%;
+}
+
+.summary table th, .summary table td {
+    padding: 5px;
+}
+
+.summary table tr th {
+    color: black;
+    background: white;
+    font-weight: bold;
+}
+
+.summary .price {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.summary .team_size {
+    margin-top: 50px;
+    font-size: 18px;
+}
+
+.sub_result {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 1rem;
+    position: relative;
+    padding: 50px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    text-align: center;
+    width: 100%;
+}
+
+.sub_result p {
+    font-size: 18px;
+}
+
+.sub_result a {
+    margin-top: 50px;
+    font-size: 18px;
+}
+
+.sub_result.success_sub h1 {
+    color: #29b866;
+    margin-bottom: 50px;
+}
+
+.sub_result.failed_sub h1 {
+    color: red;
+    margin-bottom: 50px;
+}
+
+.pri_button {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 35px;
+    outline: none;
+    background-image: linear-gradient(-180deg, #29b866 0%, #2cb419 100%) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.10), inset 0 -1px 0 0 #a9e545 !important;
+    color: white !important;
+    border-radius: 4px;
+    border: 0;
+    width: 100%;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+#feedback_area{
+    width: 100%;
+}
