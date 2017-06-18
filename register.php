@@ -2,11 +2,11 @@
 
 require('lib/init.php');
 
-if (isLoggedIn()) {
-    $url = BASE_URL . 'index.php';
-    header("Location: $url"); // Page redirecting to home.php
-    exit();
-}
+//if (isLoggedIn()) {
+//    $url = BASE_URL . 'index.php';
+//    header("Location: $url"); // Page redirecting to home.php
+//    exit();
+//}
 
 $errorMsgUsername = '';
 $errorMsgPassword = '';
@@ -229,7 +229,7 @@ include('templates/default/header.php');
                             </div>
 
                             <div class="form-actions form-group ">
-                                <input type="submit" name="register_submit" class="full-width"
+                                <input type="submit" name="register_submit" class="full-width pri_button"
                                        value="Sign up for free trial" id="signup_submit" disabled>
                             </div>
 

@@ -52,7 +52,7 @@ $country_list = $sub_c->get_country_list();
                         <p class="description">Enter number between 1 to 100. You will be charged per seat.</p>
 
                         <div class="control">
-                            <input name="extra_users" class="field" placeholder="1" type="number" min="1" max="100"
+                            <input name="extra_users" class="form-control" placeholder="1" type="number" min="1" max="100"
                                    id="user_count" value="1" required/>
                         </div>
 
@@ -63,29 +63,29 @@ $country_list = $sub_c->get_country_list();
                         </div>
 
                         <div class="control">
-                            <div id="card-element" class="field"></div>
+                            <div id="card-element" class="form-control"></div>
                         </div>
 
                         <div class="control">
-                            <input name="cardholder-name" class="field" placeholder="Name on Card"
+                            <input name="cardholder-name" class="form-control" placeholder="Name on Card"
                                    pattern="[a-zA-Z][\.]?[a-zA-Z\s]{1,20}" required/>
                         </div>
 
                         <div class="control">
-                            <input name="phone-number" class="field" placeholder="Phone Number" required
+                            <input name="phone-number" class="form-control" placeholder="Phone Number" required
                                    pattern="\(?\d{3}\)?\s?[\-]?\d{3}[\-]?\d{4}"
                                    title="(ddd) ddd-dddd or ddd-ddd-dddd" type="tel"/>
                         </div>
 
                         <div class="control">
-                            <input name="address-zip" class="field" placeholder="ZIP or Postal Code"
+                            <input name="address-zip" class="form-control" placeholder="ZIP or Postal Code"
                                    pattern="\d{5}([\-]\d{4})?"
                                    title="xxxxx or xxxxx-xxx" required/>
                         </div>
 
                         <div class="control">
                             <label for="country" class="hidden"></label>
-                            <select name="address-country" class="field" id="country" required>
+                            <select name="address-country" class="form-control" id="country" required>
                                 <option value="US">United States</option>
                                 <?php foreach ($country_list as $country_id => $country_name) { ?>
                                     <option value="<?php echo $country_id; ?>"><?php echo $country_name; ?></option>
@@ -93,7 +93,7 @@ $country_list = $sub_c->get_country_list();
                             </select>
                         </div>
 
-                        <button type="submit">Submit</button>
+                        <button type="submit" class="pri_button">Submit</button>
 
                         <input type="hidden" name="total_amount" id="total_amount">
                         <input type="hidden" name="action" value="create_subscription">

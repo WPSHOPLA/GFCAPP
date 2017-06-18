@@ -17,7 +17,7 @@ if (!empty($_POST['update_info_submit'])) {
 		$errorMsgEmail = 'Invalid Email.';
 	
 	if($email_check) {		
-		$changeEmail = $userClass->changeEmail($session_uid, $email);
+		$changeEmail = $userClass->cpassword_recover.phphangeEmail($session_uid, $email);
 		if ($changeEmail) {
 			//$userDetails = $userClass->userDetails($session_uid);
 			loadUserDetails();
@@ -66,7 +66,7 @@ include('templates/default/header.php');
 					</div>
 					
 					<div class="form-actions form-group ">
-						<input type="submit" name="update_info_submit" class="full-width" value="Save">
+						<input type="submit" name="update_info_submit" class="pri_button" value="Save">
 					</div>
 				</form>
 				
@@ -86,7 +86,7 @@ include('templates/default/header.php');
 					</div>
 					
 					<div class="form-actions form-group ">
-						<input type="submit" name="change_password_submit" class="full-width" value="Change">
+						<input type="submit" name="change_password_submit" class="pri_button" value="Change">
 					</div>
 					
 				</form>

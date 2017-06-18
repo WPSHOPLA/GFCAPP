@@ -54,7 +54,7 @@ include('templates/default/header.php');
                         </div>-->
 
                         <div class="form-actions form-group ">
-                            <input type="submit" name="login_submit" class="full-width" value="Login">
+                            <input type="submit" name="login_submit" class="pri_button" value="Login">
                         </div>
                     </form>
 

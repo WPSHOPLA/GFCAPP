@@ -158,11 +158,11 @@ function get_stripe_status()
 
 }
 
-function is_stripe_subscribed(){
+function is_stripe_subscribed()
+{
 
     $stripe_status = get_stripe_status();
-    if($stripe_status == STAFF_ACCOUNT || $stripe_status == NEED_TO_SUBSCRIBE)
-    {
+    if ($stripe_status == STAFF_ACCOUNT || $stripe_status == NEED_TO_SUBSCRIBE) {
         return false;
     }
 
