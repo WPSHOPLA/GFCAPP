@@ -1,10 +1,14 @@
 <?php
 require('lib/init.php');
 include('templates/default/header.php');
+include('lib/classes/subscriptionClass.php');
 
 global $mainClass;
 $states = $mainClass->getStates();
 
+//get country list
+$sub_c = new subscriptionClass();
+$country_list = $sub_c->get_country_list();
 ?>
 
 <div class="container-fluid content">
@@ -63,22 +67,29 @@ $states = $mainClass->getStates();
                         </div>
 
                         <div class="control">
-                            <input name="cardholder-name" class="field" placeholder="Name on Card" required/>
+                            <input name="cardholder-name" class="field" placeholder="Name on Card"
+                                   pattern="[a-zA-Z][\.]?[a-zA-Z\s]{1,20}" required/>
                         </div>
 
                         <div class="control">
                             <input name="phone-number" class="field" placeholder="Phone Number" required
-                                   type="tel"/>
+                                   pattern="\(?\d{3}\)?\s?[\-]?\d{3}[\-]?\d{4}"
+                                   title="(ddd) ddd-dddd or ddd-ddd-dddd" type="tel"/>
                         </div>
 
                         <div class="control">
-                            <input name="address-zip" class="field" placeholder="ZIP or Postal Code" required/>
+                            <input name="address-zip" class="field" placeholder="ZIP or Postal Code"
+                                   pattern="\d{5}([\-]\d{4})?"
+                                   title="xxxxx or xxxxx-xxx" required/>
                         </div>
 
                         <div class="control">
                             <label for="country" class="hidden"></label>
                             <select name="address-country" class="field" id="country" required>
-                                <option value="us" selected>United States</option>
+                                <option value="US">United States</option>
+                                <?php foreach ($country_list as $country_id => $country_name) { ?>
+                                    <option value="<?php echo $country_id; ?>"><?php echo $country_name; ?></option>
+                                <?php } ?>
                             </select>
                         </div>
 

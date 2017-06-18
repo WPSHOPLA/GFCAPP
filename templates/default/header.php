@@ -154,7 +154,7 @@
 
                                     <!--<datalist id="json-datalist"></datalist>-->
                                     <span class="search-button input-group-btn">
-										<button class="submit-comb-search" value="submit" type="submit"
+										<button class="submit-comb-search pri-button" value="submit" type="submit"
                                                 name="question_search">&nbsp;&nbsp;&nbsp;&nbsp;Search</button>
 									</span>
                                 </div>
@@ -272,14 +272,7 @@
                                 <ul class="list-unstyle cbc-chapters-list collapse">
                                     <li class="ng-scope"><a href="<?php echo BASE_URL . 'account_settings.php'; ?>">Account
                                             Settings</a></li>
-                                    <li class="ng-scope"><a href="<?php echo BASE_URL . 'subscription_status.php'; ?>">Billing</a>
-                                    </li>
-                                    <?php if (is_stripe_subscribed()) { ?>
-                                        <li class="ng-scope"><a
-                                                href="<?php echo BASE_URL . 'subscription_status.php'; ?>">Cancel or
-                                                Update
-                                                Subscription</a></li>
-                                    <?php } ?>
+                                    <li class="ng-scope"><a href="<?php echo BASE_URL . 'subscription_status.php'; ?>">Subscription</a>
                                     <li class="ng-scope"><a href="<?php echo BASE_URL . 'account_team.php'; ?>">Team</a>
                                     </li>
                                 </ul>

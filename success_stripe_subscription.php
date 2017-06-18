@@ -15,7 +15,7 @@ include('templates/default/header.php');
                         engine.</p>
                     <p>Let’s get started right away! Simply fill in your question and GoFetchCode will find the right
                         answer in a snap. If you’re not sure where to start, take a look at our example searches.</p>
-                    <a class="btn btn-primary" href="search.php">Start Your First Search</a>
+                    <a class="btn pri_button" href="search.php">Start Your First Search</a>
                 </div>
 
             </div>

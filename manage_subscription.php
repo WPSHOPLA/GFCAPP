@@ -82,7 +82,7 @@ if (isset($_POST) && $_POST['action'] == "create_subscription") {
 } else if (isset($_POST) && $_POST['action'] == "cancel_subscription") {
 
     global $session_uid, $mailClass;
-    try{
+    try {
         $userDetails = $userClass->userDetails($session_uid);
         $subscription_id = $userDetails->stripe_sub_id;
 
@@ -96,27 +96,24 @@ if (isset($_POST) && $_POST['action'] == "create_subscription") {
 
         echo "success";
 
-        //send email to customer
+        if ($_SERVER['HTTP_HOST'] != "localhost") {
+            //send email to customer
+            $user_email = $userDetails->email;
+            $mail_subject = "You unsubscribed from Gofetch Successfully";
+            $mail_content = "We have cancelled your current subscription as per your request.<br />";
+            //$mail_content .=" You will be charged $... until mm/dd/yy. ";
+            $mail_content .= "You can contact us at support@gofetchcode.com in case you need help.";
+            $mail_content_html = str_replace('\r\n', '<br />', $mail_content);
+            $mailClass->sendMail($user_email, $mail_subject, $mail_content, $mail_content_html);
+        }
 
-        $user_email = $userDetails->email;
 
-        $mail_subject = 'You unsubscribed from Gofetch Successfully';
-
-        $mail_content =  "We have cancelled your current subscription as per your request.<br>";
-//        $mail_content .=" You will be charged $... until mm/dd/yy. ";
-        $mail_content .= "<br>You can contact us at support@gofetchcode.com in case you need help.";
-
-        $mail_content_html = str_replace('\r\n', '<br />', $mail_content);
-
-        $mailClass->sendMail($user_email, $mail_subject, $mail_content, $mail_content_html);
-
-    } catch(Exception $e)
-    {
+    } catch (Exception $e) {
         echo "Failed";
     }
 
     exit();
-} else  if(isset($_POST) && $_POST['action'] == "send_feedback"){
+} else if (isset($_POST) && $_POST['action'] == "send_feedback") {
 
     global $userDetails, $mailClass;
 
@@ -124,7 +121,7 @@ if (isset($_POST) && $_POST['action'] == "create_subscription") {
 
     $mail_subject = 'Feedback from Customer';
 
-    $mail_content =  $_POST['feedback'];
+    $mail_content = $_POST['feedback'];
 
     $mail_content_html = str_replace('\r\n', '<br />', $mail_content);
 
@@ -132,8 +129,7 @@ if (isset($_POST) && $_POST['action'] == "create_subscription") {
 
     $_SESSION['first_cancel_sub'] = false;
 
-    if($result)
-    {
+    if ($result) {
         echo "success";
     } else {
         echo "Could not be sent the feedback. Please try again later.";
