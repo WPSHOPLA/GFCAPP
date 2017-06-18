@@ -23,7 +23,7 @@ include('templates/default/header.php');
 
                         <div class="form-actions form-group ">
                             <input id="reset_request_submit" type="submit" name="reset_request_submit"
-                                   class="pri_button" value="Recover">
+                                   class="pri_button full-width" value="Recover">
                         </div>
                     </form>
 

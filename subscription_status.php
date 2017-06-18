@@ -41,80 +41,81 @@ $sub_status = $sub->status;
                 <?php if ($sub_status == "canceled") {
                     ?>
 
-                    <?php if (isset($_SESSION['first_cancel_sub'])) {
+                    <?php if (isset($_SESSION['first_cancel_sub']) && $_SESSION['first_cancel_sub'] == true) {
+                        $_SESSION['first_cancel_sub'] = false;
+                        ?>
+                        <h5>Hello <?php echo $userDetails->username; ?></h5>
+                        <h5>You are successfully unsubscribed.</h5>
+                        <h5>We regret to see you go. Email us for your feedback to info@gofetchcode.com</h5>
 
-                        if ($_SESSION['first_cancel_sub'] == true) {
-
-                            $_SESSION['first_cancel_sub'] = false;
-                            ?>
-                            <h5>Hello <?php echo $userDetails->username; ?></h5>
-                            <h5>You are successfully unsubscribed.</h5>
-                            <h5>We regret to see you go. Email us for your feedback to info@gofetchcode.com</h5>
-
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <label for="feedback">Feedback:</label>
-                                    <textarea rows="3" name="feedback" id="feedback_area" title="feedback"></textarea>
-                                    <button class="btn pri_button" id="feedback_bt">Send Feedback</button>
-                                    <a href="create_stripe_subscription.php" class="btn pri_button">Reactivate Subscription</a>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="feedback">Feedback:</label>
+                                <textarea rows="3" name="feedback" id="feedback_area" title="feedback"></textarea>
+                                <button class="btn pri_button" id="feedback_bt">Send Feedback</button>
+                                <a href="create_stripe_subscription.php" class="btn pri_button">Reactivate
+                                    Subscription</a>
                             </div>
-                            <div class="mt50">
-                                <div id="err_msg" class="text-warning"></div>
-                            </div>
-                        <?php }  else { ?>
+                        </div>
+                        <div class="mt50">
+                            <div id="err_msg" class="text-warning"></div>
+                        </div>
+                    <?php } else { ?>
 
-                            <a href="create_stripe_subscription.php" class="btn pri_button">Reactivate Subscription</a>
+                        <div class="col-md-4">
+                            <a href="create_stripe_subscription.php" class="btn pri_button">Reactivate
+                                Subscription</a>
+                        </div>
 
-                        <?php  }
-                    } ?>
+                    <?php }
 
-                <?php } else { ?>
+                } else { ?>
 
                     <div class="sub_info mt50">
 
-                        <?php if($sub->status == "trialing") {?>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Trial Period</label>
+                        <?php if ($sub->status == "trialing") { ?>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Trial Period</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <?php echo date('Y-m-d', $sub->trial_start) . ' ~ ' . date('Y-m-d', $sub->trial_end); ?>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <?php echo date('Y-m-d', $sub->trial_start).' ~ '.date('Y-m-d', $sub->trial_end); ?>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Trial Period Days</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <?php echo $plan->trial_period_days; ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Trial Period Days</label>
-                            </div>
-                            <div class="col-md-8">
-                                <?php echo $plan->trial_period_days; ?>
-                            </div>
-                        </div>
                         <?php } ?>
 
-                        <?php if($sub->status != "trialing") {?>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Current Billing Period</label>
+                        <?php if ($sub->status != "trialing") { ?>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Current Billing Period</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <?php echo date('Y-m-d', $sub->current_period_start) . ' ~ ' . date('Y-m-d', $sub->current_period_end); ?>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <?php echo date('Y-m-d', $sub->current_period_start). ' ~ ' .date('Y-m-d', $sub->current_period_end); ?>
-                            </div>
-                        </div>
                         <?php } ?>
 
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Monthly Bill Amount</label>
                             </div>
-                            <div class="col-md-8 text-uppercase"><?php echo $plan->amount / 100 . ' '.$plan->currency; ?></div>
+                            <div
+                                class="col-md-8 text-uppercase"><?php echo $plan->amount / 100 . ' ' . $plan->currency; ?></div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Billing Interval</label>
                             </div>
-                            <div class="col-md-8"><?php echo $plan->interval_count.' '.$plan->interval; ?></div>
+                            <div class="col-md-8"><?php echo $plan->interval_count . ' ' . $plan->interval; ?></div>
                         </div>
 
                         <div class="row">
@@ -122,7 +123,7 @@ $sub_status = $sub->status;
                                 <label>Card</label>
                             </div>
                             <div class="col-md-8">
-                                <?php echo $card->brand." XXXX-XXXX-XXXX-". $card->last4; ?>
+                                <?php echo $card->brand . " XXXX-XXXX-XXXX-" . $card->last4; ?>
                             </div>
                         </div>
 
@@ -143,7 +144,6 @@ $sub_status = $sub->status;
                                 <?php echo date('Y-m-d', $sub->trial_end); ?>
                             </div>
                         </div>
-                        
 
 
                     </div>
