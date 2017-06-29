@@ -9,7 +9,7 @@ class subscriptionClass
 
     public function __construct()
     {
-        $this->secret_key = "sk_test_LL5Ae6cB110II4w3HwxJBadw";
+        $this->secret_key = "sk_test_Av3DO9lOuw2J9zA7URxasnSn";
         \Stripe\Stripe::setApiKey($this->secret_key);
     }
 

@@ -1,17 +1,11 @@
 <?php
 require('lib/init.php');
-
-include('templates/default/header.php');
-
 include('lib/classes/subscriptionClass.php');
 
 //ikf the user is not subscribed, go to create subscription page
-requireSubscription();
-
+check_stripe_sub_status();
 
 global $userDetails;
-
-//echo phpinfo();
 
 $sub_id = $userDetails->stripe_sub_id;
 $sub_c = new subscriptionClass();
@@ -19,6 +13,7 @@ $sub_c = new subscriptionClass();
 $sub = $sub_c->get_subscription_instance($sub_id);
 
 $plan = $sub->plan;
+
 $customer_id = $sub->customer;
 
 $customer = \Stripe\Customer::retrieve($customer_id);
@@ -26,6 +21,7 @@ $card = $customer->sources->data[0];
 
 $sub_status = $sub->status;
 
+include('templates/default/header.php');
 ?>
 
 <div class="container-fluid content">
@@ -73,57 +69,111 @@ $sub_status = $sub->status;
 
                     <div class="sub_info mt50">
 
-                        <?php if ($sub->status == "trialing") { ?>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Trial Period</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <?php echo date('Y-m-d', $sub->trial_start) . ' ~ ' . date('Y-m-d', $sub->trial_end); ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Trial Period Days</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <?php echo $plan->trial_period_days; ?>
-                                </div>
-                            </div>
-                        <?php } ?>
-
-                        <?php if ($sub->status != "trialing") { ?>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Current Billing Period</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <?php echo date('Y-m-d', $sub->current_period_start) . ' ~ ' . date('Y-m-d', $sub->current_period_end); ?>
-                                </div>
-                            </div>
-                        <?php } ?>
-
                         <div class="row">
                             <div class="col-md-4">
-                                <label>Monthly Bill Amount</label>
-                            </div>
-                            <div
-                                class="col-md-8 text-uppercase"><?php echo $plan->amount / 100 . ' ' . $plan->currency; ?></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Billing Interval</label>
-                            </div>
-                            <div class="col-md-8"><?php echo $plan->interval_count . ' ' . $plan->interval; ?></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Card</label>
+                                <label>Subscription Type</label>
                             </div>
                             <div class="col-md-8">
-                                <?php echo $card->brand . " XXXX-XXXX-XXXX-" . $card->last4; ?>
+                                <?php
+                                if ($userDetails->extra_users > 1)
+                                    echo "Team";
+                                else
+                                    echo "Individual";
+                                ?>
+                            </div>
+                        </div>
+
+                        <?php
+                        if ($userDetails->extra_users > 1) {
+                            ?>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Team Size</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <?php echo $userDetails->extra_users; ?>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Billing Period</label>
+                            </div>
+                            <div class="col-md-8">
+                                <?php
+                                if ($plan->interval == "month" && $plan->interval_count == "1") {
+                                    echo "Monthly";
+                                } else {
+                                    //day, week, month, year
+                                    echo 'Per ' . $plan->interval_count . ' ' . $plan->interval;
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <?php if ($sub->status == "trialing") { ?>
+                                    <label>Trial Period Starts On</label>
+                                <?php } else { ?>
+                                    <label>Trial Period Started On</label>
+                                <?php } ?>
+                            </div>
+                            <div class="col-md-8">
+                                <?php echo date('M d, Y', $sub->trial_start); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <?php if ($sub->status == "trialing") { ?>
+                                    <label>Trial Period Ends On</label>
+                                <?php } else { ?>
+                                    <label>Trial Period Ended On</label>
+                                <?php } ?>
+                            </div>
+                            <div class="col-md-8">
+
+                                <?php echo date('M d, Y', $sub->trial_end); ?>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Billing Starts On</label>
+                            </div>
+                            <div class="col-md-8">
+                                <?php echo date('M d, Y', $sub->current_period_start); ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Monthly Billing Amount</label>
+                            </div>
+                            <div
+                                class="col-md-8 text-uppercase"><?php echo $plan->currency . ' ' . $plan->amount / 100; ?></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Card Type</label>
+                            </div>
+                            <div class="col-md-8">
+                                <?php echo $card->brand; ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Card Number Ends With (last 4 digits)</label>
+                            </div>
+                            <div class="col-md-8">
+                                <?php echo $card->last4; ?>
                             </div>
                         </div>
 
@@ -141,7 +191,7 @@ $sub_status = $sub->status;
                                 <label>Next Billing Date</label>
                             </div>
                             <div class="col-md-8">
-                                <?php echo date('Y-m-d', $sub->trial_end); ?>
+                                <?php echo date('M d, Y', $sub->trial_end); ?>
                             </div>
                         </div>
 
@@ -149,7 +199,7 @@ $sub_status = $sub->status;
                     </div>
                     <div class="mt50">
                         <button class="btn pri_button" id="cancel_sub_bt">Cancel Subscription</button>
-                        <button class="btn pri_button hidden" id="update_sub_bt">Update Subscription</button>
+                        <button class="btn pri_button" id="update_sub_bt">Update Subscription</button>
                     </div>
 
                     <div class="mt50">
@@ -167,10 +217,10 @@ $sub_status = $sub->status;
 
         $.confirm({
             title: 'Cancel Subscription',
-            content: 'Are you sure?',
+            content: 'Are you sure you want to cancel the subscription?',
             buttons: {
                 Continue: {
-                    text: "Continue",
+                    text: "Yes",
                     btnClass: "btn-primary pri-button",
                     action: function () {
 
@@ -197,7 +247,7 @@ $sub_status = $sub->status;
                     }
                 },
                 Cancel: {
-                    text: "Cancel",
+                    text: "No",
                     btnClass: "btn-dark",
                     action: function () {
                         window.location = "search.php";

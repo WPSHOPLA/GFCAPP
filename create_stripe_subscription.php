@@ -178,7 +178,7 @@ $country_list = $sub_c->get_country_list();
 <script src="https://js.stripe.com/v3/"></script>
 <script>
 
-    var stripe = Stripe('pk_test_zSImsqpRbcCM0MEvGdaxoChk');
+    var stripe = Stripe('pk_test_cMjfccB7ZiyVocHxfJKUkQ0u');
     var elements = stripe.elements();
 
     var card = elements.create('card', {
